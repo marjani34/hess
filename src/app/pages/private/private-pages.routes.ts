@@ -9,7 +9,7 @@ export const PRIVATE_PAGES_ROUTES: Routes = [
       {
         path: "",
         pathMatch: "full",
-        redirectTo: "dashboard",
+        redirectTo: "events/list",
       },
       {
         path: "events",
