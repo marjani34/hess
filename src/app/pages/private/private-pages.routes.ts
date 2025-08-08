@@ -10,6 +10,10 @@ export const PRIVATE_PAGES_ROUTES: Routes = [
         path: "",
         pathMatch: "full",
         redirectTo: "dashboard",
+      },
+      {
+        path: "events",
+        loadChildren: () => import('./event-management/event-management.module').then(m => m.EventManagementModule)
       }
     ],
   },

@@ -1,0 +1,159 @@
+<div class="event-list-container">
+  <!-- Header Section -->
+  <nz-card class="header-card">
+    <div class="header-content">
+      <div class="title-section">
+        <h2>My Events</h2>
+        <p>Manage your events</p>
+      </div>
+      <div class="actions-section">
+        <button nz-button nzType="primary" nzSize="large" (click)="onCreateEvent()">
+          <span nz-icon nzType="plus"></span>
+          Create Event
+        </button>
+        <button nz-button nzSize="large" (click)="onRefresh()">
+          <span nz-icon nzType="reload"></span>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </nz-card>
+
+  <!-- Filters Section -->
+  <nz-card class="filters-card">
+    <div class="filters-content">
+      <div class="search-section">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input 
+            nz-input 
+            [formControl]="searchControl"
+            placeholder="Search events by title or description"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </div>
+
+      <div class="filter-section">
+        <nz-select 
+          [formControl]="visibilityFilter"
+          placeholder="Filter by visibility"
+          style="width: 200px;"
+        >
+          <nz-option [nzValue]="null" [nzLabel]="'All'"></nz-option>
+          <nz-option nzValue="public" [nzLabel]="'Public'"></nz-option>
+          <nz-option nzValue="private" [nzLabel]="'Private'"></nz-option>
+        </nz-select>
+
+        <nz-select 
+          [formControl]="sortOrder"
+          placeholder="Sort by date"
+          style="width: 200px;"
+        >
+          <nz-option nzValue="asc" [nzLabel]="'Oldest first'"></nz-option>
+          <nz-option nzValue="desc" [nzLabel]="'Newest first'"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+  </nz-card>
+
+  <!-- Events Table -->
+  <nz-card class="table-card">
+    <nz-spin [nzSpinning]="loading">
+      <nz-table 
+        #basicTable 
+        [nzData]="filteredEvents"
+        [nzPageSize]="pageSize"
+        [nzTotal]="total"
+        [nzShowSizeChanger]="true"
+        [nzShowQuickJumper]="true"
+        [nzLoading]="loading"
+      >
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date & Time</th>
+            <th>Venue</th>
+            <th>Status</th>
+            <th>Visibility</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of basicTable.data">
+            <td>
+              <div class="event-title">
+                <strong>{{ event.title }}</strong>
+                <p class="event-description">{{ event.description | slice:0:100 }}{{ event.description.length > 100 ? '...' : '' }}</p>
+              </div>
+            </td>
+            <td>
+              <div class="event-datetime">
+                <div>{{ formatDate(event.startDateTime) }}</div>
+                <div class="time">{{ formatDateTime(event.startDateTime) }}</div>
+              </div>
+            </td>
+            <td>
+              <div class="event-venue">
+                <strong>{{ event.venue.venueName }}</strong>
+                <div>{{ event.venue.city }}, {{ event.venue.state }}</div>
+              </div>
+            </td>
+            <td>
+              <nz-tag [nzColor]="getEventStatusColor(event.status)">
+                {{ event.status }}
+              </nz-tag>
+            </td>
+            <td>
+              <nz-tag [nzColor]="getEventVisibilityTag(event.isPublic).color">
+                {{ getEventVisibilityTag(event.isPublic).text }}
+              </nz-tag>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button 
+                  nz-button 
+                  nzType="link" 
+                  nzSize="small"
+                  (click)="onViewEvent(event)"
+                >
+                  <span nz-icon nzType="eye"></span>
+                </button>
+                <button 
+                  nz-button 
+                  nzType="link" 
+                  nzSize="small"
+                  (click)="onEditEvent(event)"
+                >
+                  <span nz-icon nzType="edit"></span>
+                </button>
+                <button 
+                  nz-button 
+                  nzType="link" 
+                  nzSize="small"
+                  nzDanger
+                  (click)="onDeleteEvent(event)"
+                >
+                  <span nz-icon nzType="delete"></span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+
+      <!-- Empty State -->
+      <nz-empty 
+        *ngIf="!loading && filteredEvents.length === 0"
+        [nzNotFoundImage]="'simple'"
+        nzNotFoundTitle="No events found"
+        nzNotFoundDescription="Create your first event to get started"
+      >
+        <button nz-button nzType="primary" (click)="onCreateEvent()">
+          Create Event
+        </button>
+      </nz-empty>
+    </nz-spin>
+  </nz-card>
+</div>

@@ -1,0 +1,257 @@
+<div class="event-form-container">
+  <nz-card class="form-card">
+    <div class="form-header">
+      <h2>{{ getPageTitle() }}</h2>
+      <p>{{ isEditMode ? 'Update your event details' : 'Create a new event for your organization' }}</p>
+    </div>
+
+    <nz-spin [nzSpinning]="loading">
+      <form nz-form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="event-form">
+        
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h3>Basic Information</h3>
+          
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="24">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired>Title</nz-form-label>
+                <nz-form-control [nzSpan]="18" nzErrorTip="Please enter a valid title (3-100 characters)">
+                  <input nz-input formControlName="title" placeholder="Enter event title" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="24">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="6" nzRequired>Description</nz-form-label>
+                <nz-form-control [nzSpan]="18" nzErrorTip="Please enter a description (10-1000 characters)">
+                  <textarea 
+                    nz-input 
+                    formControlName="description" 
+                    [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+                    placeholder="Describe your event..."
+                  ></textarea>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+        <nz-divider></nz-divider>
+
+        <!-- Date & Time Section -->
+        <div class="form-section">
+          <h3>Date & Time</h3>
+          
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Start Date</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please select start date">
+                  <nz-date-picker formControlName="startDate" style="width: 100%;"></nz-date-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Start Time</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please select start time">
+                  <nz-time-picker formControlName="startTime" style="width: 100%;"></nz-time-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>End Date</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please select end date">
+                  <nz-date-picker formControlName="endDate" style="width: 100%;"></nz-date-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>End Time</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please select end time">
+                  <nz-time-picker formControlName="endTime" style="width: 100%;"></nz-time-picker>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Timezone</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please select timezone">
+                  <nz-select formControlName="timezone" style="width: 100%;">
+                    <nz-option 
+                      *ngFor="let tz of timezoneOptions" 
+                      [nzValue]="tz.value" 
+                      [nzLabel]="tz.label">
+                    </nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+        <nz-divider></nz-divider>
+
+        <!-- Venue Section -->
+        <div class="form-section">
+          <h3>Venue Information</h3>
+          
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Venue Name</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please enter venue name">
+                  <input nz-input formControlName="venueName" placeholder="Enter venue name" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Address</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please enter address">
+                  <input nz-input formControlName="venueAddress" placeholder="Enter venue address" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="8" nzRequired>City</nz-form-label>
+                <nz-form-control [nzSpan]="16" nzErrorTip="Please enter city">
+                  <input nz-input formControlName="venueCity" placeholder="City" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="8" nzRequired>State</nz-form-label>
+                <nz-form-control [nzSpan]="16" nzErrorTip="Please enter state">
+                  <input nz-input formControlName="venueState" placeholder="State" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="8">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="8" nzRequired>Postal Code</nz-form-label>
+                <nz-form-control [nzSpan]="16" nzErrorTip="Please enter postal code">
+                  <input nz-input formControlName="venuePostalCode" placeholder="Postal Code" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Country</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please enter country">
+                  <input nz-input formControlName="venueCountry" placeholder="Country" />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+        <nz-divider></nz-divider>
+
+        <!-- Images Section -->
+        <div class="form-section">
+          <h3>Event Images</h3>
+          
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Primary Image</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please upload primary image">
+                  <nz-upload
+                    [nzBeforeUpload]="handlePrimaryImageUpload"
+                    [nzShowUploadList]="false"
+                    [nzAccept]="'image/*'"
+                  >
+                    <button nz-button>
+                      <span nz-icon nzType="upload"></span>
+                      Upload Primary Image
+                    </button>
+                  </nz-upload>
+                  <div *ngIf="primaryImageUrl" class="image-preview">
+                    <img [src]="primaryImageUrl" alt="Primary Image" />
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12" nzRequired>Cover Image</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzErrorTip="Please upload cover image">
+                  <nz-upload
+                    [nzBeforeUpload]="handleCoverImageUpload"
+                    [nzShowUploadList]="false"
+                    [nzAccept]="'image/*'"
+                  >
+                    <button nz-button>
+                      <span nz-icon nzType="upload"></span>
+                      Upload Cover Image
+                    </button>
+                  </nz-upload>
+                  <div *ngIf="coverImageUrl" class="image-preview">
+                    <img [src]="coverImageUrl" alt="Cover Image" />
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+        <nz-divider></nz-divider>
+
+        <!-- Settings Section -->
+        <div class="form-section">
+          <h3>Event Settings</h3>
+          
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="12">
+              <nz-form-item>
+                <nz-form-label [nzSpan]="12">Visibility</nz-form-label>
+                <nz-form-control [nzSpan]="12">
+                  <nz-switch formControlName="isPublic"></nz-switch>
+                  <span class="switch-label">{{ eventForm.get('isPublic')?.value ? 'Public' : 'Private' }}</span>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button nz-button nzSize="large" (click)="onCancel()">
+            Cancel
+          </button>
+          <button 
+            nz-button 
+            nzType="primary" 
+            nzSize="large" 
+            type="submit"
+            [disabled]="!eventForm.valid || loading"
+          >
+            <span nz-icon nzType="save"></span>
+            {{ isEditMode ? 'Update Event' : 'Create Event' }}
+          </button>
+        </div>
+      </form>
+    </nz-spin>
+  </nz-card>
+</div>

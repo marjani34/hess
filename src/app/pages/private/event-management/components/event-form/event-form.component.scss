@@ -1,0 +1,136 @@
+.event-form-container {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+
+  .form-card {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 32px;
+
+      h2 {
+        margin: 0 0 8px 0;
+        font-size: 28px;
+        font-weight: 600;
+        color: #262626;
+      }
+
+      p {
+        margin: 0;
+        color: #8c8c8c;
+        font-size: 16px;
+      }
+    }
+
+    .event-form {
+      .form-section {
+        margin-bottom: 32px;
+
+        h3 {
+          margin: 0 0 24px 0;
+          font-size: 18px;
+          font-weight: 600;
+          color: #262626;
+          border-bottom: 2px solid #f0f0f0;
+          padding-bottom: 8px;
+        }
+
+        .switch-label {
+          margin-left: 12px;
+          color: #595959;
+          font-weight: 500;
+        }
+      }
+
+      .image-preview {
+        margin-top: 12px;
+        
+        img {
+          max-width: 200px;
+          max-height: 150px;
+          border-radius: 8px;
+          border: 1px solid #d9d9d9;
+          object-fit: cover;
+        }
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 40px;
+        padding-top: 24px;
+        border-top: 1px solid #f0f0f0;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .event-form-container {
+    padding: 16px;
+
+    .form-card {
+      .form-header {
+        h2 {
+          font-size: 24px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+
+      .event-form {
+        .form-section {
+          h3 {
+            font-size: 16px;
+          }
+        }
+
+        .form-actions {
+          flex-direction: column;
+          align-items: stretch;
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Form validation styles
+::ng-deep {
+  .ant-form-item-has-error {
+    .ant-input,
+    .ant-select-selector,
+    .ant-picker {
+      border-color: #ff4d4f !important;
+    }
+  }
+
+  .ant-form-item-explain-error {
+    color: #ff4d4f;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .ant-upload {
+    .ant-btn {
+      height: 40px;
+      border-radius: 6px;
+    }
+  }
+
+  .ant-switch {
+    &.ant-switch-checked {
+      background-color: #1890ff;
+    }
+  }
+}

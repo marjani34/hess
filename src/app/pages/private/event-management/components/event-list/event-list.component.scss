@@ -1,0 +1,144 @@
+.event-list-container {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+
+  .header-card {
+    margin-bottom: 16px;
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      .title-section {
+        h2 {
+          margin: 0 0 8px 0;
+          font-size: 24px;
+          font-weight: 600;
+          color: #262626;
+        }
+
+        p {
+          margin: 0;
+          color: #8c8c8c;
+          font-size: 14px;
+        }
+      }
+
+      .actions-section {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  .filters-card {
+    margin-bottom: 16px;
+
+    .filters-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      .search-section {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .filter-section {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  .table-card {
+    .event-title {
+      .event-description {
+        margin: 4px 0 0 0;
+        color: #8c8c8c;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+    }
+
+    .event-datetime {
+      .time {
+        color: #8c8c8c;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+    }
+
+    .event-venue {
+      div {
+        color: #8c8c8c;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .event-list-container {
+    padding: 16px;
+
+    .header-card {
+      .header-content {
+        flex-direction: column;
+        align-items: stretch;
+
+        .actions-section {
+          justify-content: center;
+        }
+      }
+    }
+
+    .filters-card {
+      .filters-content {
+        flex-direction: column;
+        align-items: stretch;
+
+        .search-section {
+          min-width: auto;
+        }
+
+        .filter-section {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+// Table responsive
+@media (max-width: 1024px) {
+  .event-list-container {
+    .table-card {
+      ::ng-deep {
+        .ant-table {
+          .ant-table-thead > tr > th,
+          .ant-table-tbody > tr > td {
+            padding: 8px 4px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

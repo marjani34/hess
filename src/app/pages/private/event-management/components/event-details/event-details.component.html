@@ -1,0 +1,201 @@
+<div class="event-details-container">
+  <nz-spin [nzSpinning]="loading">
+    <div *ngIf="event; else notFound" class="event-content">
+      
+      <!-- Header Section -->
+      <nz-card class="header-card">
+        <div class="header-content">
+          <div class="title-section">
+            <h1>{{ event.title }}</h1>
+            <div class="event-meta">
+              <nz-tag [nzColor]="getEventStatusColor(event.status)">
+                {{ event.status }}
+              </nz-tag>
+              <nz-tag [nzColor]="getEventVisibilityTag(event.isPublic).color">
+                {{ getEventVisibilityTag(event.isPublic).text }}
+              </nz-tag>
+            </div>
+          </div>
+          <div class="actions-section">
+            <button nz-button nzType="primary" (click)="onEditEvent()">
+              <span nz-icon nzType="edit"></span>
+              Edit Event
+            </button>
+            <button nz-button (click)="onBackToList()">
+              <span nz-icon nzType="arrow-left"></span>
+              Back to List
+            </button>
+            <button 
+              *ngIf="event.isPublic" 
+              nz-button 
+              nzType="default"
+              (click)="onCopyPublicLink()"
+            >
+              <span nz-icon nzType="copy"></span>
+              Copy Public Link
+            </button>
+            <button 
+              *ngIf="event.isPublic" 
+              nz-button 
+              nzType="default"
+              (click)="onShareEvent()"
+            >
+              <span nz-icon nzType="share-alt"></span>
+              Share Event
+            </button>
+          </div>
+        </div>
+      </nz-card>
+
+      <!-- Event Images -->
+      <nz-card class="images-card" *ngIf="event.primaryImageUrl || event.coverImageUrl">
+        <div class="images-section">
+          <div class="primary-image" *ngIf="event.primaryImageUrl">
+            <h3>Primary Image</h3>
+            <img
+              [src]="event.primaryImageUrl"
+              width="400"
+              height="300"
+              alt="Primary Image"
+              style="max-width: 100%; height: auto;"
+            />
+          </div>
+          <div class="cover-image" *ngIf="event.coverImageUrl">
+            <h3>Cover Image</h3>
+            <img
+              [src]="event.coverImageUrl"
+              width="400"
+              height="300"
+              alt="Cover Image"
+              style="max-width: 100%; height: auto;"
+            />
+          </div>
+        </div>
+      </nz-card>
+
+      <!-- Event Information -->
+      <nz-card class="info-card">
+        <h3>Event Information</h3>
+        <nz-descriptions [nzColumn]="2" [nzBordered]="true">
+          <nz-descriptions-item nzTitle="Description" [nzSpan]="2">
+            {{ event.description }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Start Date & Time">
+            {{ formatDateTime(event.startDateTime) }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="End Date & Time">
+            {{ formatDateTime(event.endDateTime) }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Timezone">
+            {{ event.timezone }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Organizer">
+            {{ event.organizer.businessName }}
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+
+      <!-- Venue Information -->
+      <nz-card class="venue-card" *ngIf="event.venue">
+        <h3>Venue Information</h3>
+        <nz-descriptions [nzColumn]="2" [nzBordered]="true">
+          <nz-descriptions-item nzTitle="Venue Name">
+            {{ event.venue.venueName }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Email">
+            {{ event.venue.email }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Address" [nzSpan]="2">
+            {{ getVenueFullAddress() }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Coordinates" *ngIf="event.venue.latitude && event.venue.longitude">
+            {{ event.venue.latitude }}, {{ event.venue.longitude }}
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </nz-card>
+
+      <!-- Statistics -->
+      <nz-card class="stats-card">
+        <h3>Event Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">{{ getTicketCount() }}</div>
+            <div class="stat-label">Ticket Types</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ getTotalTicketCapacity() }}</div>
+            <div class="stat-label">Total Capacity</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ getTotalTicketSales() }}</div>
+            <div class="stat-label">Tickets Sold</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">{{ getLeadCount() }}</div>
+            <div class="stat-label">Leads</div>
+          </div>
+        </div>
+      </nz-card>
+
+      <!-- Tickets Section -->
+      <nz-card class="tickets-card" *ngIf="event.tickets && event.tickets.length > 0">
+        <h3>Tickets</h3>
+        <div class="tickets-list">
+          <div class="ticket-item" *ngFor="let ticket of event.tickets">
+            <div class="ticket-header">
+              <h4>{{ ticket.ticketName }}</h4>
+              <div class="ticket-price">
+                {{ ticket.price }} {{ ticket.currency }}
+              </div>
+            </div>
+            <div class="ticket-details">
+              <span>Capacity: {{ ticket.capacity }}</span>
+              <span>Sold: {{ ticket.ticketPurchases.length }}</span>
+              <span>Code: {{ ticket.prefix }}-{{ ticket.postfix }}</span>
+            </div>
+            <div class="ticket-coupons" *ngIf="ticket.coupons && ticket.coupons.length > 0">
+              <span class="coupon-label">Coupons:</span>
+              <nz-tag 
+                *ngFor="let coupon of ticket.coupons" 
+                [nzColor]="'green'"
+                size="small"
+              >
+                {{ coupon.code }} (-{{ coupon.discount }}%)
+              </nz-tag>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+
+      <!-- Image Gallery -->
+      <nz-card class="gallery-card" *ngIf="event.imageGalleryUrls && event.imageGalleryUrls.length > 0">
+        <h3>Image Gallery</h3>
+        <div class="gallery-grid">
+          <div class="gallery-item" *ngFor="let imageUrl of event.imageGalleryUrls">
+            <img
+              [src]="imageUrl"
+              width="200"
+              height="150"
+              alt="Gallery Image"
+              style="max-width: 100%; height: auto;"
+            />
+          </div>
+        </div>
+      </nz-card>
+
+    </div>
+
+    <!-- Not Found Template -->
+    <ng-template #notFound>
+             <nz-empty>
+         <div style="text-align: center; padding: 40px;">
+           <h3>Event Not Found</h3>
+           <p>The event you are looking for does not exist or has been removed.</p>
+         </div>
+        <button nz-button nzType="primary" (click)="onBackToList()">
+          Back to Events List
+        </button>
+      </nz-empty>
+    </ng-template>
+  </nz-spin>
+</div>
