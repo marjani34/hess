@@ -17,7 +17,7 @@ export class EventService {
   public loading$ = this.loadingSubject.asObservable();
 
   // Mock organization ID for demo purposes
-  private readonly MOCK_ORG_ID = 'org-123';
+  private readonly MOCK_ORG_ID = 'org-1';
 
   constructor(
     private http: HttpClient,
