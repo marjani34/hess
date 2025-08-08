@@ -52,7 +52,7 @@ export class AuthService {
     //     return of(undefined);
     //   })
     // );
-    return this._http.get<any>(`https://hessadnani.com/api/mock.json`).pipe(
+    return this._http.get<any>(`/assets/mock-data.json`).pipe(
       tap(res => {
         if (res?.auth?.access_token && res?.auth?.refresh_token) {
           this.storeTokens(res.auth.access_token, res.auth.refresh_token);

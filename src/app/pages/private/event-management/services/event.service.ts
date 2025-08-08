@@ -9,7 +9,7 @@ import { UserService } from '../../../../core/services/user.service';
   providedIn: 'root'
 })
 export class EventService {
-  private readonly MOCK_API_URL = 'https://hessadnani.com/api/mock.json';
+  private readonly MOCK_API_URL = '/assets/mock-data.json';
   private eventsSubject = new BehaviorSubject<Event[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 

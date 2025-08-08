@@ -1,0 +1,243 @@
+{
+  "auth": {
+    "token": "mock-jwt-token",
+    "refreshToken": "mock-refresh-token"
+  },
+  "user": {
+    "id": "user-123",
+    "email": "demo@example.com",
+    "firstName": "Demo",
+    "lastName": "User",
+    "roles": "ADMIN"
+  },
+  "events": [
+    {
+      "id": "event-1",
+      "title": "Tech Conference 2024",
+      "status": "Active",
+      "organizer": {
+        "id": "org-123",
+        "businessName": "Event Corp"
+      },
+      "startDateTime": "2024-06-15T09:00:00Z",
+      "endDateTime": "2024-06-15T17:00:00Z",
+      "timezone": "UTC",
+      "description": "Join us for the biggest tech conference of the year featuring keynote speakers, workshops, and networking opportunities.",
+      "primaryImageUrl": "https://api.slingacademy.com/public/sample-photos/1.jpeg",
+      "coverImageUrl": "https://api.slingacademy.com/public/sample-photos/2.jpeg",
+      "imageGalleryUrls": [
+        "https://api.slingacademy.com/public/sample-photos/3.jpeg",
+        "https://api.slingacademy.com/public/sample-photos/4.jpeg"
+      ],
+      "venue": {
+        "id": "venue-1",
+        "email": "info@conferencecenter.com",
+        "venueName": "Tech Conference Center",
+        "address1": "123 Innovation Street",
+        "city": "San Francisco",
+        "state": "CA",
+        "country": "USA",
+        "postalZip": "94105",
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "imageGalleryUrls": []
+      },
+      "tickets": [
+        {
+          "id": "ticket-1",
+          "prefix": "TC",
+          "postfix": "001",
+          "ticketName": "General Admission",
+          "price": 99.99,
+          "currency": "USD",
+          "capacity": 500,
+          "coupons": [
+            {
+              "id": "coupon-1",
+              "code": "EARLYBIRD",
+              "discount": 20
+            }
+          ],
+          "ticketPurchases": [
+            {
+              "id": "purchase-1",
+              "person": {
+                "id": "person-1",
+                "firstName": "John"
+              },
+              "quantity": 2,
+              "purchaseDate": "2024-05-01T10:00:00Z",
+              "totalPrice": 159.98
+            }
+          ],
+          "dateAdded": "2024-04-01T00:00:00Z"
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead-1",
+          "status": "Interested",
+          "organization": {
+            "id": "org-456"
+          },
+          "person": {
+            "id": "person-2",
+            "email": "contact@techcompany.com",
+            "status": "Active"
+          },
+          "handlerLinks": [
+            {
+              "id": "handler-1",
+              "user": {
+                "id": "user-123"
+              }
+            }
+          ]
+        }
+      ],
+      "dateAdded": "2024-04-01T00:00:00Z",
+      "dateUpdated": null,
+      "dateDeleted": null,
+      "isPublic": true
+    },
+    {
+      "id": "event-2",
+      "title": "Startup Networking Mixer",
+      "status": "Active",
+      "organizer": {
+        "id": "org-123",
+        "businessName": "Event Corp"
+      },
+      "startDateTime": "2024-06-20T18:00:00Z",
+      "endDateTime": "2024-06-20T21:00:00Z",
+      "timezone": "America/New_York",
+      "description": "Connect with fellow entrepreneurs, investors, and industry experts in a relaxed networking environment.",
+      "primaryImageUrl": "https://api.slingacademy.com/public/sample-photos/5.jpeg",
+      "coverImageUrl": "https://api.slingacademy.com/public/sample-photos/6.jpeg",
+      "imageGalleryUrls": [
+        "https://api.slingacademy.com/public/sample-photos/7.jpeg"
+      ],
+      "venue": {
+        "id": "venue-2",
+        "email": "events@startuphub.com",
+        "venueName": "Startup Hub",
+        "address1": "456 Innovation Avenue",
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "postalZip": "10001",
+        "latitude": 40.7128,
+        "longitude": -74.0060,
+        "imageGalleryUrls": []
+      },
+      "tickets": [
+        {
+          "id": "ticket-2",
+          "prefix": "SN",
+          "postfix": "001",
+          "ticketName": "Networking Pass",
+          "price": 49.99,
+          "currency": "USD",
+          "capacity": 100,
+          "coupons": [],
+          "ticketPurchases": [
+            {
+              "id": "purchase-2",
+              "person": {
+                "id": "person-3",
+                "firstName": "Sarah"
+              },
+              "quantity": 1,
+              "purchaseDate": "2024-05-15T14:30:00Z",
+              "totalPrice": 49.99
+            }
+          ],
+          "dateAdded": "2024-05-01T00:00:00Z"
+        }
+      ],
+      "leads": [],
+      "dateAdded": "2024-05-01T00:00:00Z",
+      "dateUpdated": null,
+      "dateDeleted": null,
+      "isPublic": false
+    },
+    {
+      "id": "event-3",
+      "title": "Design Workshop Series",
+      "status": "Active",
+      "organizer": {
+        "id": "org-123",
+        "businessName": "Event Corp"
+      },
+      "startDateTime": "2024-07-10T10:00:00Z",
+      "endDateTime": "2024-07-10T16:00:00Z",
+      "timezone": "Europe/London",
+      "description": "Learn advanced design principles and techniques in this hands-on workshop series.",
+      "primaryImageUrl": "https://api.slingacademy.com/public/sample-photos/8.jpeg",
+      "coverImageUrl": "https://api.slingacademy.com/public/sample-photos/9.jpeg",
+      "imageGalleryUrls": [
+        "https://api.slingacademy.com/public/sample-photos/10.jpeg",
+        "https://api.slingacademy.com/public/sample-photos/11.jpeg"
+      ],
+      "venue": {
+        "id": "venue-3",
+        "email": "workshops@designstudio.com",
+        "venueName": "Creative Design Studio",
+        "address1": "789 Design Street",
+        "city": "London",
+        "state": "England",
+        "country": "UK",
+        "postalZip": "SW1A 1AA",
+        "latitude": 51.5074,
+        "longitude": -0.1278,
+        "imageGalleryUrls": []
+      },
+      "tickets": [
+        {
+          "id": "ticket-3",
+          "prefix": "DW",
+          "postfix": "001",
+          "ticketName": "Workshop Pass",
+          "price": 149.99,
+          "currency": "GBP",
+          "capacity": 50,
+          "coupons": [
+            {
+              "id": "coupon-2",
+              "code": "STUDENT",
+              "discount": 25
+            }
+          ],
+          "ticketPurchases": [],
+          "dateAdded": "2024-06-01T00:00:00Z"
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead-2",
+          "status": "Qualified",
+          "organization": {
+            "id": "org-789"
+          },
+          "person": {
+            "id": "person-4",
+            "email": "design@agency.com",
+            "status": "Active"
+          },
+          "handlerLinks": [
+            {
+              "id": "handler-2",
+              "user": {
+                "id": "user-123"
+              }
+            }
+          ]
+        }
+      ],
+      "dateAdded": "2024-06-01T00:00:00Z",
+      "dateUpdated": null,
+      "dateDeleted": null,
+      "isPublic": true
+    }
+  ]
+}
